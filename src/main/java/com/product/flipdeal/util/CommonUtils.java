@@ -1,6 +1,6 @@
 package com.product.flipdeal.util;
 
-import com.product.flipdeal.model.ProductDetail;
+import com.product.flipdeal.response.ProductDiscounts;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -23,11 +23,11 @@ public class CommonUtils {
         return price;
     }
 
-    public static double defaultDiscount(ProductDetail productDetail) {
-        double discount3 = 0;
-        if (productDetail.getPrice() > 1000) {
-            discount3 = calculateDiscount(2, productDetail.getPrice());
+    public static double defaultDiscount(ProductDiscounts productDiscounts) {
+        double discount = 0;
+        if (productDiscounts.getPrice() > 1000) {
+            discount = calculateDiscount(2, productDiscounts.getPrice());
         }
-        return discount3;
+        return discount;
     }
 }

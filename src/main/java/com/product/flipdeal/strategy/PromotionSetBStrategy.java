@@ -43,7 +43,7 @@ public class PromotionSetBStrategy implements PromotionStrategy {
         //discount on arrival status
         double discount2 = calcualteDiscountOnArrivalStatus(productDetail, productDiscount);
         //flat discount if price exceed 1000
-        double discount3 = defaultDiscount(productDetail);
+        double discount3 = defaultDiscount(productDiscount);
 
         Discount discount = new Discount();
         double maxDiscount = Math.max(discount3, Math.max(discount1, discount2));

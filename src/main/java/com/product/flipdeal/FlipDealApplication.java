@@ -21,8 +21,7 @@ import java.util.List;
 public class FlipDealApplication {
 
     public static void main(String[] args) {
-
-       // SpringApplication.run(FlipDealApplication.class, args);
+        
         System.out.println(args[0]);
         ApplicationContext applicationContext = SpringApplication.run(FlipDealApplication.class, args);
         FlipDealService service = applicationContext.getBean(FlipDealService.class);

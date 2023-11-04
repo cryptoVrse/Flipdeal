@@ -30,7 +30,9 @@ public class PromotionSetAStrategy implements PromotionStrategy {
                     .build();
 
             Discount discount = calculateAndSetDiscount(productDetail, productDiscount);
-            productDiscount.setDiscount(discount);
+            if (discount.getAmount() != 0) {
+                productDiscount.setDiscount(discount);
+            }
             productDiscounts.add(productDiscount);
         }
         return productDiscounts;
@@ -44,7 +46,7 @@ public class PromotionSetAStrategy implements PromotionStrategy {
         //flat discount of 100 on electronics and furnishing
         double discount3 = calculateFlatDiscount(productDetail);
         //flat discount if price exceed 1000
-        double discount4 = defaultDiscount(productDetail);
+        double discount4 = defaultDiscount(productDiscount);
 
         Discount discount = new Discount();
         double maxDiscount = Math.max(discount4, Math.max(discount3, Math.max(discount1, discount2)));
