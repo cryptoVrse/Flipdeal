@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.product</groupId>
-	<artifactId>flipdeal</artifactId>
+	<artifactId>flipDeal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>flipdeal</name>
+	<name>flipDeal</name>
 	<description>Coverself coding round</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -6,7 +6,7 @@ import com.product.flipdeal.response.ProductDiscounts;
 
 import java.util.List;
 
-interface PromotionStrategy {
+public interface PromotionStrategy {
 
     List<ProductDiscounts> calculateDiscounts(List<ProductDetail> productDetailList, CurrencyExchange currencyExchange);
 }

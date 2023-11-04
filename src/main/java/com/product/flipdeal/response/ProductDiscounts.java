@@ -1,11 +1,10 @@
 package com.product.flipdeal.response;
 
-import com.product.flipdeal.model.ProductDetail;
+import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
+@Builder
 public class ProductDiscounts {
 
     String category;
