@@ -9,12 +9,15 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.product</groupId>
-	<artifactId>flipdeal</artifactId>
+	<artifactId>flipDeal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>flipdeal</name>
+	<name>flipDeal</name>
 	<description>Coverself coding round</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
