@@ -2,22 +2,27 @@ package com.product.flipdeal.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.product.flipdeal.response.ProductDiscounts;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
 @Component
+@Slf4j
 public class APIConnection {
 
     public boolean isConnectionCreated(URL url) {
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod(HttpMethod.GET.toString());
             conn.connect();
 
             //Getting the response code
@@ -25,7 +30,8 @@ public class APIConnection {
             if (responseCode == 200) {
                 return true;
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
+            log.error("Error in opening connection {}", e.getMessage());
             e.printStackTrace();
         }
         return false;
@@ -36,14 +42,13 @@ public class APIConnection {
         String pathTemp = System.getProperty("user.dir");
         String updatedPath = pathTemp + "/target/" + filename;
         Path path = Paths.get(updatedPath);
-        try {
+        try (FileWriter file = new FileWriter(String.valueOf(path))) {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(productDiscounts);
-            FileWriter file = new FileWriter(String.valueOf(path));
             file.write(json);
             file.flush();
-            file.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
+            log.error("Error in writing to output file {}", e.getMessage());
             e.printStackTrace();
         }
     }

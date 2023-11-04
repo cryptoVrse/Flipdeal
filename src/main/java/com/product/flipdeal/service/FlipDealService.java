@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.net.URI;
 import java.net.URL;
 import java.util.List;
 
@@ -24,22 +25,25 @@ public class FlipDealService {
     public APIConnection apiConnection;
     @Autowired
     public PromotionFactory promotionFactory;
+    @Autowired
+    public Converter converter;
 
     public void fetchProductDetails(String promotionSet) {
         try {
-            URL productUrl = new URL("https://mock.coverself.net/rest/hiring/products");
-            URL exchangeUrl = new URL("https://mock.coverself.net/rest/hiring/exchange-rates");
-            boolean isProductConnected = apiConnection.isConnectionCreated(productUrl);
+            URL productUrl = new URI("https://mock.coverself.net/rest/hiring/products").toURL();
+            URL exchangeUrl = new URI("https://mock.coverself.net/rest/hiring/exchange-rates").toURL();
+            boolean isProductDetailConnected = apiConnection.isConnectionCreated(productUrl);
             boolean isExchangeConnected = apiConnection.isConnectionCreated(exchangeUrl);
-            if (isProductConnected && isExchangeConnected) {
-                Converter converter = new Converter();
-                List<ProductDetail> productDetail = converter.getAndConvertJSON(productUrl);
-                CurrencyExchange currencyExchange = converter.convertCurrencyExchange(exchangeUrl);
+            if (isProductDetailConnected && isExchangeConnected) {
+                List<ProductDetail> productDetail = converter.getProductDetailsJSON(productUrl);
+                CurrencyExchange currencyExchange = converter.getCurrencyExchange(exchangeUrl);
                 PromotionStrategy promotionStrategy = promotionFactory.getPromotion(promotionSet);
-                promotionContext.setPromotionStrategy(promotionStrategy);
-                List<ProductDiscounts> productDiscounts = promotionContext.execute(productDetail, currencyExchange);
-                apiConnection.writeOutput(productDiscounts);
-                log.info("Product Details with discount {}", productDiscounts);
+                if (promotionStrategy != null) {
+                    promotionContext.setPromotionStrategy(promotionStrategy);
+                    List<ProductDiscounts> productDiscounts = promotionContext.execute(productDetail, currencyExchange);
+                    apiConnection.writeOutput(productDiscounts);
+                    log.info("Product Details with discount {}", productDiscounts);
+                }
             } else {
                 log.error("API Urls not able to connect");
             }
