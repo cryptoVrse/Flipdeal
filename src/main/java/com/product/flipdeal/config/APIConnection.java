@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
