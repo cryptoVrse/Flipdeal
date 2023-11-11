@@ -9,7 +9,12 @@ import com.product.flipdeal.strategy.PromotionContext;
 import com.product.flipdeal.strategy.PromotionStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URL;
@@ -32,6 +37,13 @@ public class FlipDealService {
         try {
             URL productUrl = new URI("https://mock.coverself.net/rest/hiring/products").toURL();
             URL exchangeUrl = new URI("https://mock.coverself.net/rest/hiring/exchange-rates").toURL();
+//            RestTemplate restTemplate = new RestTemplate();
+//            String fooResourceUrl
+//                    = "https://mock.coverself.net/rest/hiring/products";
+//            ResponseEntity<List<ProductDetail>> response
+//                    = restTemplate.exchange(fooResourceUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<ProductDetail>>() {
+//            });
+//            System.out.println(response);
             boolean isProductDetailConnected = apiConnection.isConnectionCreated(productUrl);
             boolean isExchangeConnected = apiConnection.isConnectionCreated(exchangeUrl);
             if (isProductDetailConnected && isExchangeConnected) {
